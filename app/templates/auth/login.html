@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Log in - Workout Buddy{% endblock %}
+{% block style %} <link rel="stylesheet" href="../../static/login.css"> {% endblock %}
+
+{% block main %}
+<main>
+    <div class="form">
+        <h2>Log In</h2>
+        <form action="#">
+            <input type="text" name="username" id="username" title="username"><br>
+            <input type="email" placeholder="E-mail" id="email"><br>
+            <input type="password" placeholder="Password" id="password"><br>
+        </form>
+    </div>
+</main>
+{% endblock %}
