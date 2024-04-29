@@ -5,11 +5,13 @@
 {% block main %}
 <main>
     <div class="form">
-        <h2>Log In</h2>
-        <form action="#">
-            <input type="text" name="username" id="username" title="username"><br>
-            <input type="email" placeholder="E-mail" id="email"><br>
-            <input type="password" placeholder="Password" id="password"><br>
+        <h2 class="login-title">Log In</h2>
+        <form action="#" class="inputs">
+            <input type="text" name="username" id="username" title="username" placeholder="Username"><br>
+            <input type="password" placeholder="Password" id="password"><a href="#" class="forgot-pass">Forgot Password?</a><br>
+            
+            <button type="submit" class="login-btn">Login</button>
+            <p>Don't have an account? <a href="/auth/register">Create</a></p>
         </form>
     </div>
 </main>

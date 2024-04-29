@@ -1,2 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Sign Up - Workout Buddy{% endblock %}
+{% block style %} <link rel="stylesheet" href="../../static/register.css"> {% endblock %}
+
+{% block main %}
+<main>
+    <div class="form">
+        <h2 class="login-title">Sign Up</h2>
+        <form action="#" class="inputs">
+            <input type="text" name="username" id="username" title="username" placeholder="Username"><br>
+            <input type="email" placeholder="E-mail" id="email"><br>
+            <input type="password" placeholder="Password" id="password"><a href="/auth/login" class="forgot-pass">Already have an account?</a><br>
+            
+            <button type="submit" class="login-btn">Register</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

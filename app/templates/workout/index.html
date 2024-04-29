@@ -1,2 +1,20 @@
-{% extends "base.html" %}
-{% block title %}Workout Buddy{% endblock %}
+{% extends "base.html" %} {% block title %}Workout Buddy{% endblock %} {% block
+style %} <link rel="stylesheet" href="../../static/home.css" /> {% endblock %}
+{% block main %}
+
+<main>
+  <section class="container">
+    <h1>Personalized Workout Plan</h1>
+    <p>
+      Welcome to Workout Buddy! We provide
+      comprehensive system for users to create, manage, and track customized
+      workout plans to achieve their fitness goals.
+    </p>
+    <a href="/auth/register">
+        <button class="get-started-btn">Get Started</button>
+    </a>
+    
+  </section>
+</main>
+
+{% endblock %}

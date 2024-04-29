@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        font-size: small;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+main {
+    /* background-image: url('workout-bg.jpg'); */
+
+    padding-top: 12%;
+    background-color: #2c2e39;
+    padding-bottom: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-inline: 20%;
+}
+
+.form {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-inline: 30%;
+    background-color: transparent;
+    padding-block: 5%;
+    border-radius: 5%;
+    border-color: white;
+    margin-bottom: 0;
+    box-shadow: 5px 20px 50px #FF5757;
+    animation: fadeInAnimation ease 1s;
+}
+
+.inputs {
+    padding: 30px;
+    flex-direction: column;
+    display: flex;
+}
+.inputs > input{
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.login-title{
+    color: #FF5757;
+}
+
+/* .form > h2 {
+    background-color: transparent;
+} */
+
+.login-btn {
+    margin-inline: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.forgot-pass {
+    align-self: flex-end;
+}
