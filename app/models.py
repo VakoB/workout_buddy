@@ -1,7 +1,8 @@
 from app.extensions import db
 from uuid import uuid4
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from datetime import datetime, timezone
+from sqlalchemy import ForeignKey
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -31,3 +32,21 @@ class User(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    jti = db.Column(db.String(), nullable=False)
+    create_at = db.Column(db.DateTime(), default = datetime.now(timezone.utc))
+
+    def __repr__(self):
+        return f"<Token {self.jti}>"
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+class WorkoutPlans(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.String(), ForeignKey('users.id'))
+

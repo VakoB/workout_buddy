@@ -1,6 +1,6 @@
-from flask import Flask, request, Blueprint, render_template, jsonify
-from app.models import User
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask import Flask, request, Blueprint, render_template, jsonify, redirect, url_for
+from app.models import User, TokenBlocklist
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt, get_jwt_identity
 
 authBP = Blueprint('auth', __name__)
 
@@ -53,12 +53,41 @@ def register():
             new_user.save()
             print('user created')
             # redirect to the main page (or sign in page)
-            return jsonify({'suceess': 'the user was created.'}), 201
+
+            return redirect(url_for('auth.login'), 301)
             
 
         
         elif user is not None:
-            return jsonify({'error': 'the user already exists.'}), 403
+            return redirect(url_for('auth.login'), 301)
         
 
+@authBP.route('/jwtclaims')
+@jwt_required()
+def jwtClaims():
+    claims = get_jwt()
+    return jsonify({"message": "msg", "claims": claims})
     
+@authBP.route('/refresh', methods=['GET'])
+@jwt_required(refresh=True)
+def refresh_access():
+    identity = get_jwt_identity()
+    new_access_token = create_access_token(identity)
+
+    return jsonify({"access_token": new_access_token})
+
+
+@authBP.route('/logout', methods=['GET'])
+@jwt_required(verify_type=False)
+def logout_user():
+    jwt = get_jwt()
+
+    jti = jwt['jti']
+
+    token_type = jwt['type']
+
+    token_b = TokenBlocklist(jti=jti)
+
+    token_b.save()
+
+    return jsonify({'message': f'{token_type} token revoked successfully'}), 200
