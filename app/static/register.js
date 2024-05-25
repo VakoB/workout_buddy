@@ -25,6 +25,7 @@ loginBtn.onclick = ()=>{
         return response.json();
     })
     .then(data => {
+        console.log('=======================================')
         console.log(data);
     })
     .catch(error => {

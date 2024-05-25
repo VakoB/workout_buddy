@@ -54,19 +54,19 @@ def register():
             print('user created')
             # redirect to the main page (or sign in page)
 
-            return redirect(url_for('auth.login'), 301)
+            return redirect(url_for('auth.login'))
             
 
         
         elif user is not None:
-            return redirect(url_for('auth.login'), 301)
+            return redirect(url_for('auth.login'))
         
 
 @authBP.route('/jwtclaims')
 @jwt_required()
 def jwtClaims():
     claims = get_jwt()
-    return jsonify({"message": "msg", "claims": claims})
+    return jsonify({"message": "success", "claims": claims})
     
 @authBP.route('/refresh', methods=['GET'])
 @jwt_required(refresh=True)
