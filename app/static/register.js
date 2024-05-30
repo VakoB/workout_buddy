@@ -1,13 +1,16 @@
 let loginBtn = document.getElementById('login-btn');
 
-loginBtn.onclick = ()=>{
+loginBtn.onclick = (event)=>{
+
+    event.preventDefault();
+
     let username = document.getElementById('username').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
 
-    let url = '/auth/register';
+    let url = 'http://127.0.0.1:5000/auth/register';
     fetch(url, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(
             {
                 username: username,
@@ -16,17 +19,18 @@ loginBtn.onclick = ()=>{
             }
         ),
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json; charset=UTF-8"
         }
     }).then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
         return response.json();
     })
-    .then(data => {
-        console.log('=======================================')
-        console.log(data);
+    .then(result => {
+        if (!result.success) {
+            alert(result.message);
+        }
+        else{
+            window.location.href = '/auth/login';
+        }
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);

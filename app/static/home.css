@@ -33,6 +33,7 @@ main {
     width: 200px;
     padding: 10px;
     transition: 0.5s;
+    border: none;
 }
 .container > p {
     max-width: 600px;
@@ -47,10 +48,14 @@ main {
     font-size: 45px;
 }
 
+.container > h1 > span{
+    color: #FF5757;
+}
+
+
 
 .get-started-btn:hover {
     cursor: pointer;
-    padding: 20px;
     color: white;
     background-color: #FF5757;
 }

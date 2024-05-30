@@ -1,15 +1,13 @@
 from flask import Flask, request, Blueprint, render_template, jsonify, redirect, url_for
 from app.models import User, TokenBlocklist
-from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt, get_jwt_identity, current_user
 
 authBP = Blueprint('auth', __name__)
 
 @authBP.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'GET':
-        return render_template('auth/login.html')
-    elif request.method == 'POST':
-            
+    if request.method == 'POST':
+
         data = request.get_json()
 
         user = User.get_user_by_username(username=data.get('username'))
@@ -29,16 +27,18 @@ def login():
             )
         return jsonify(
             {
-                "error": "Invalid username or password."
+                "message": "Invalid username or password.",
+                "success": False
             }, 400
         )
+    
+    return render_template('auth/login.html')
+
 
 @authBP.route('/register', methods=['POST', 'GET'])
 def register():
 
-    if request.method == 'GET':
-        return render_template('auth/register.html')
-    elif request.method == 'POST':
+    if request.method == 'POST':
 
         data = request.get_json()
         user = User.get_user_by_username(username=data.get('username'))
@@ -48,20 +48,22 @@ def register():
                 username = data.get('username'),
                 email = data.get('email')
             )
+
             new_user.set_password(data.get('password'))
 
             new_user.save()
             print('user created')
             # redirect to the main page (or sign in page)
 
-            return redirect(url_for('auth.login'))
+            return jsonify({"message": "created user successfully", "success": True}), 201
             
-
+    
         
         elif user is not None:
-            return redirect(url_for('auth.login'))
+            return jsonify({"message": "user already exists.", "success": False}), 409
         
-
+    return render_template('auth/register.html')
+        
 @authBP.route('/jwtclaims')
 @jwt_required()
 def jwtClaims():

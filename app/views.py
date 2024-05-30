@@ -15,3 +15,8 @@ def dashBoard():
 @jwt_required()
 def profile():
     return jsonify({"message": "success","user_details":{"username": current_user.username, "email": current_user.email}})
+
+@viewsBP.route('/main', methods=['GET'])
+@jwt_required()
+def main():
+    pass
