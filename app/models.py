@@ -49,4 +49,5 @@ class TokenBlocklist(db.Model):
 class WorkoutPlans(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.String(), ForeignKey('users.id'))
+    
 

@@ -6,12 +6,12 @@
 }
 
 main {
-    height: 1000px;
+    padding-bottom: 10rem;
 }
 
 .btn {
     border: none;
-    border-radius: 10px;
+    border-radius: 50px;
     font-weight: bold;
     margin-inline: 2rem;
     margin-top: 1.3rem;
@@ -44,6 +44,9 @@ main {
 .nav-list > li{
     margin-inline: 1rem;
     margin-top: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .nav-list > li > a{
@@ -51,12 +54,23 @@ main {
     color: white;
 }
 
-.nav-list > li > a:hover{
-    text-decoration: none;
-    color: #FF5757;
-    text-decoration: underline;
-    text-underline-offset: 5px;
+.nav-list > li::after{
+    width: 100%;
+    background-color: white;
+    height: 2px;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
+
+.nav-list > li:hover::after{
+    transform: scaleX(1);
+}
+
 
 .logo img{
     width: 250px;

@@ -19,4 +19,4 @@ def profile():
 @viewsBP.route('/main', methods=['GET'])
 @jwt_required()
 def main():
-    pass
+    return render_template('workout/main.html')

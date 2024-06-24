@@ -38,11 +38,11 @@ form {
     justify-content: center;
     margin-inline: 30%;
     background-color: transparent;
-    padding-block: 5%;
+    padding-top: 5%;
     border-radius: 5%;
     border-color: white;
     margin-bottom: 0;
-    box-shadow: 5px 20px 50px #FF5757;
+    border: #FF5757 solid 1px;
     animation: fadeInAnimation ease 1s;
 }
 
@@ -51,9 +51,10 @@ form {
     flex-direction: column;
     display: flex;
 }
-form > input{
+form > input {
     padding: 10px;
     border-radius: 10px;
+    border: none;
 }
 
 .login-title{
@@ -69,6 +70,7 @@ form > input{
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
 }
 
 .forgot-pass {

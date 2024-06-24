@@ -22,15 +22,18 @@ def login():
                     "tokens": {
                         "access": access_token,
                         "refresh": refresh_token
-                    }
-                }, 200
-            )
+                    },
+                    "success": True
+                }
+            ), 200
+        
+        
         return jsonify(
             {
                 "message": "Invalid username or password.",
                 "success": False
-            }, 400
-        )
+            }
+        ), 400
     
     return render_template('auth/login.html')
 

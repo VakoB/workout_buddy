@@ -6,13 +6,16 @@
 <main>
     <div class="form">
         <h2 class="login-title">Log In</h2>
-        <form action="#" class="inputs">
+        <form>
             <input type="text" name="username" id="username" title="username" placeholder="Username"><br>
             <input type="password" placeholder="Password" id="password"><a href="#" class="forgot-pass">Forgot Password?</a><br>
             
-            <button type="submit" class="login-btn">Login</button>
+            <button type="button" class="login-btn" id="login-btn">Login</button>
             <p>Don't have an account? <a href="/auth/register">Create</a></p>
         </form>
     </div>
 </main>
+
+
+<script src="../../static/login.js"></script>
 {% endblock %}
