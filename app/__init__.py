@@ -20,6 +20,8 @@ def create_app():
     #initializing extensions
     db.init_app(app)
     jwt.init_app(app)
+    # app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string']
+    
 
     
     app.register_blueprint(authBP, url_prefix="/auth")

@@ -1,7 +1,8 @@
+
 let loginBtn = document.getElementById('login-btn');
 let jwt_tokens;
 const url_main = 'http://127.0.0.1:5000/main';
-let url = 'http://127.0.0.1:5000/auth/login';
+const url_login = 'http://127.0.0.1:5000/auth/login';
 const url_refresh = 'http://127.0.0.1:5000/auth/refresh';
 
 
@@ -13,13 +14,15 @@ loginBtn.onclick = async function(event){
 }
 
 async function login(){
+    console.log('Entered the login function where i try to POST username and password into /auth/login.');
+    console.log('if result is successful, i save access and refresh token in local browser storage.');
+    console.log('im calling fetchMainContent function')
 
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
 
-    let url = 'http://127.0.0.1:5000/auth/login';
     try {
-        let response = await fetch(url, {
+        let response = await fetch(url_login, {
             method: "POST",
             body: JSON.stringify(
                 {
@@ -55,21 +58,35 @@ async function login(){
 // ===================== fetch main content =================
 
 async function fetchMainContent(){
+    console.log('Im in fetchMainContent function.');
+    console.log('getting access token from local storage, checking if it exists.');
+
+    
     let accessItem = localStorage.getItem('access');
     if (!accessItem){
         console.error('No access token found');
     }
     try {
+        console.log('attepting to GET /main endpoint with the eccess key.');
+        console.log(`the access key im gonna send in headers: ${localStorage.getItem('access')}`)
+        const token = `Bearer ${localStorage.getItem('access')}`;
+        console.log(token);
+
         let fetchContent = await fetch(url_main, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": `Bearer ${accessItem}`
+                "Authorization": token,
             }
         });
     
         if (fetchContent.status == 401){
+
+            console.log('fetchContent.status == 401 -its expired so ill attempt to use refresh token');
+            console.log('calling refreshToken function...');
             await refreshToken();
+            console.log('attepting to GET /main endpoint with the new eccess key.');
+            
             fetchContent = await fetch(url_main, {
                 method: 'GET',
                 headers: {
@@ -97,6 +114,8 @@ async function fetchMainContent(){
 // ===================== refresh token if it timed out =========================
 
 async function refreshToken(){
+    console.log('Im in refreshToken function');
+    console.log('Got refresh token from local storage');
     const refreshTokenVar = localStorage.getItem('refresh');
 
     if (!refreshTokenVar){
@@ -105,6 +124,7 @@ async function refreshToken(){
 
 
     try {
+        console.log('');
         getNewToken = await fetch(url_refresh, {
             method: 'GET',
             headers: {
@@ -112,11 +132,13 @@ async function refreshToken(){
                 "Authorization": `Bearer ${refreshTokenVar}`
             }
         });
+
     
         let newAccessToken = await getNewToken.json();
     
         if (newAccessToken.success){
             localStorage.setItem('access', newAccessToken.get('access_token'));
+            console.log(`new access token: ${newAccessToken.get('access_token')}`);
         }
         else{ 
             console.error('failed to refresh access.');
